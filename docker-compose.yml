@@ -1,0 +1,15 @@
+services:
+  my_fullrestapi:
+    container_name: my_fullrestapi
+    image: postgres:latest
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=my_fullrestapi
+    volumes:
+      - myfullrestapi_pg_data:/var/lib/postgresql/data
+
+volumes:
+  myfullrestapi_pg_data: {}
