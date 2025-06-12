@@ -10,7 +10,7 @@ import (
 func main() {
 	db, err := database.ConnectDB()
 	if err != nil {
-		log.Fatalf("FATAL: não foi possível conectar ao banco de dados: %v", err)
+		log.Fatalf("Nao foi possivel conectar ao banco de dados: %v", err)
 	}
 	defer db.Close()
 
