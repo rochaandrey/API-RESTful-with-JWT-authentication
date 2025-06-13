@@ -3,7 +3,9 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"log"
 
+	"github.com/golang-migrate/migrate"
 	_ "github.com/lib/pq"
 )
 
@@ -33,4 +35,21 @@ func ConnectDB() (*sql.DB, error) {
 	fmt.Println("Connected to " + dbname + " sucessful")
 
 	return db, nil
+}
+
+func RunMigrations() {
+	connectionString := fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=disable", user, password, host, port, dbname)
+
+	migrationPath := "file://database/migrations"
+
+	m, err := migrate.New(migrationPath, connectionString)
+	if err != nil {
+		log.Fatalf("Não tá dando para criar a instancia da migration: %v", err)
+	}
+
+	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
+		log.Fatalf("Erro ao aplicar migrations: %v", err)
+	}
+
+	log.Println("Migrations aplicadas com sucesso!")
 }

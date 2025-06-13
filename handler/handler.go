@@ -1,11 +1,13 @@
 package handler
 
-import "database/sql"
+import (
+	"gin/repository"
+)
 
 type Handler struct {
-	DB *sql.DB
+	ClienteRepo repository.ClienteRepository
 }
 
-func NewHandler(db *sql.DB) *Handler {
-	return &Handler{DB: db}
+func NewHandler(repo repository.ClienteRepository) *Handler {
+	return &Handler{ClienteRepo: repo}
 }
